@@ -13,7 +13,7 @@
 
 ### バックエンド
 - **ランタイム**: Node.js
-- **フレームワーク**: Hono
+- **フレームワーク**: Hono（`hono/vercel` アダプター使用）
 - **デプロイ**: Vercel（フロントエンドと同一プロジェクト）
 
 ### AI
@@ -73,11 +73,12 @@ ai-chat2/                      # Vercel プロジェクトルート
 │   └── useChat.ts              # チャット状態管理カスタムフック
 ├── types/
 │   └── chat.ts                 # 型定義
-├── api/                        # Hono API (Vercel Serverless Functions)
-│   └── [[...route]].ts         # Hono アプリのエントリーポイント（catch-all）
+├── app/
+│   └── api/
+│       └── [[...route]]/
+│           └── route.ts        # Hono アプリのエントリーポイント（catch-all）
 ├── package.json
-├── next.config.ts
-└── vercel.json                 # Vercel ルーティング設定
+└── next.config.ts
 ```
 
 ## API仕様

@@ -2,19 +2,18 @@
 
 ## Phase 1: プロジェクトセットアップ
 
-- [ ] Next.js プロジェクトを初期化する (`npx create-next-app@latest . --typescript --tailwind --app`)
-- [ ] 依存パッケージをインストールする
-  - [ ] `hono` `@hono/node-server`
-  - [ ] `@google/generative-ai`
-  - [ ] `react-markdown` `remark-gfm` (Markdown レンダリング用)
-- [ ] `tsconfig.json` の `strict: true` を確認する
-- [ ] `.env.local` を作成し `GEMINI_API_KEY` を設定する
-- [ ] `.gitignore` に `.env.local` が含まれていることを確認する
+- [x] Next.js プロジェクトを初期化する (`npx create-next-app@latest . --typescript --tailwind --app`)
+- [x] 依存パッケージをインストールする
+  - [x] `hono`（`hono/vercel` アダプター内蔵、`@hono/node-server` は App Router では不要）
+  - [x] `@google/generative-ai`
+  - [x] `react-markdown` `remark-gfm` (Markdown レンダリング用)
+- [x] `tsconfig.json` の `strict: true` を確認する
+- [x] `.env.local` を作成し `GEMINI_API_KEY` を設定する
+- [x] `.gitignore` に `.env.local` が含まれていることを確認する
 
 ## Phase 2: バックエンド (Hono API)
 
-- [ ] `api/[[...route]].ts` を作成し Hono アプリを初期化する
-- [ ] `vercel.json` を作成し `/api/*` を Hono にルーティングする
+- [ ] `app/api/[[...route]]/route.ts` を作成し Hono アプリを初期化する
 - [ ] `POST /api/chat` エンドポイントを実装する
   - [ ] リクエストボディ (`messages` 配列) をバリデーションする
   - [ ] Gemini API クライアントを初期化する (`gemini-3-flash-preview`)
