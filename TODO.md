@@ -24,15 +24,15 @@
 
 ## Phase 3: 型定義・共通ロジック
 
-- [ ] `types/chat.ts` に型を定義する
-  - [ ] `Message` (`role: 'user' | 'assistant'`, `content: string`)
-  - [ ] `ChatThread` (`id: string`, `messages: Message[]`, `title: string`)
-- [ ] `hooks/useChat.ts` カスタムフックを実装する
-  - [ ] `threads` (スレッド一覧) の state 管理
-  - [ ] `currentThreadId` の state 管理
-  - [ ] `sendMessage` 関数: `/api/chat` に fetch し SSE をパースして `messages` を更新する
-  - [ ] ストリーミング中の `isLoading` フラグ管理
-  - [ ] 新規スレッド作成関数 `createThread`
+- [x] `types/chat.ts` に型を定義する
+  - [x] `Message` (`role: 'user' | 'assistant'`, `content: string`)
+  - [x] `ChatThread` (`id: string`, `messages: Message[]`, `title: string`)
+- [x] `hooks/useChat.ts` カスタムフックを実装する
+  - [x] `threads` (スレッド一覧) の state 管理
+  - [x] `currentThreadId` の state 管理
+  - [x] `sendMessage` 関数: `/api/chat` に fetch し SSE をパースして `messages` を更新する
+  - [x] ストリーミング中の `isLoading` フラグ管理
+  - [x] 新規スレッド作成関数 `createThread`
 
 ## Phase 4: フロントエンド UI
 
