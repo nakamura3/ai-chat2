@@ -43,6 +43,7 @@ export function MessageBubble({ message, isLast, isLoading }: Props) {
           <Markdown
             remarkPlugins={[remarkGfm]}
             components={{
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               code({ node: _node, children, className, ...rest }) {
                 const match = /language-(\w+)/.exec(className || '')
                 return match ? (
