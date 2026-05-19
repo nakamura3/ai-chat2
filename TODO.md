@@ -13,14 +13,14 @@
 
 ## Phase 2: バックエンド (Hono API)
 
-- [ ] `app/api/[[...route]]/route.ts` を作成し Hono アプリを初期化する
-- [ ] `POST /api/chat` エンドポイントを実装する
-  - [ ] リクエストボディ (`messages` 配列) をバリデーションする
-  - [ ] Gemini API クライアントを初期化する (`gemini-3-flash-preview`)
-  - [ ] `generateContentStream` でストリーミングレスポンスを取得する
-  - [ ] SSE (`text/event-stream`) 形式でクライアントに送信する
-  - [ ] ストリーム終了時に `data: [DONE]` を送信する
-  - [ ] エラー時に適切なステータスコードとメッセージを返す
+- [x] `app/api/[[...route]]/route.ts` を作成し Hono アプリを初期化する
+- [x] `POST /api/chat` エンドポイントを実装する
+  - [x] リクエストボディ (`messages` 配列) をバリデーションする
+  - [x] Gemini API クライアントを初期化する (`gemini-3.1-flash-lite`)
+  - [x] `sendMessageStream` でストリーミングレスポンスを取得する
+  - [x] SSE (`text/event-stream`) 形式でクライアントに送信する
+  - [x] ストリーム終了時に `data: [DONE]` を送信する
+  - [x] エラー時に適切なステータスコードとメッセージを返す
 
 ## Phase 3: 型定義・共通ロジック
 

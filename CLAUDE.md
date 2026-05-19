@@ -18,7 +18,7 @@
 
 ### AI
 - **プロバイダー**: Google Gemini API
-- **推奨モデル**: `gemini-3-flash-preview`（コスト・速度のバランス）
+- **推奨モデル**: `gemini-3.1-flash-lite`（コスト・速度のバランス）
 - **応答方式**: Server-Sent Events (SSE) によるストリーミング
 
 ### データストア
