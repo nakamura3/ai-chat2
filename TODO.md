@@ -65,7 +65,21 @@
 
 ## Phase 6: Vercel デプロイ
 
-- [ ] Vercel プロジェクトを作成し Git リポジトリと連携する
-- [ ] Vercel ダッシュボードで `GEMINI_API_KEY` 環境変数を設定する
-- [ ] `vercel deploy` を実行する
+> ⚠️ 社内プロキシが TLS を遮断するため CLI からは接続不可。以下の手順で手動デプロイを行う。
+
+- [ ] GitHub にリポジトリを push する
+  ```bash
+  git remote add origin https://github.com/<your-org>/ai-chat2.git
+  git push -u origin main
+  ```
+- [ ] Vercel ダッシュボード (https://vercel.com/new) でリポジトリをインポートする
+  - Framework Preset: **Next.js** を選択（自動検出される）
+  - Root Directory: そのまま（変更不要）
+- [ ] Vercel ダッシュボードで環境変数を設定する
+  - `GEMINI_API_KEY` = `<Google AI Studio のキー>`
+  - 対象環境: Production / Preview / Development すべてにチェック
+- [ ] **Deploy** ボタンを押してデプロイを実行する
 - [ ] 本番 URL で動作確認する
+  - [ ] メッセージ送信 → ストリーミング表示
+  - [ ] マルチターン対話
+  - [ ] 新規チャット作成
