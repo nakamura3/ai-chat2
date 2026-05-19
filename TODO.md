@@ -36,22 +36,22 @@
 
 ## Phase 4: フロントエンド UI
 
-- [ ] `app/layout.tsx` にグローバルレイアウト（フォント・背景色）を設定する
-- [ ] `app/page.tsx` をチャット画面のルートとして実装する
-- [ ] `components/Sidebar.tsx` を実装する
-  - [ ] スレッド一覧を表示する
-  - [ ] スレッドを選択すると `currentThreadId` が切り替わる
-  - [ ] 「新規チャット」ボタンを配置する
-- [ ] `components/ChatWindow.tsx` を実装する
-  - [ ] `currentThreadId` に対応するメッセージ一覧を表示する
-  - [ ] メッセージ追加時に最下部へ自動スクロールする
-- [ ] `components/MessageBubble.tsx` を実装する
-  - [ ] `role` に応じてユーザー / AI のスタイルを出し分ける
-  - [ ] `react-markdown` + `remark-gfm` で Markdown をレンダリングする
-  - [ ] コードブロックにシンタックスハイライトを適用する（`rehype-highlight` 等）
-- [ ] `components/MessageInput.tsx` を実装する
-  - [ ] テキストエリア（`Shift+Enter` で改行、`Enter` で送信）
-  - [ ] ストリーミング中は送信ボタンを無効化する
+- [x] `app/layout.tsx` にグローバルレイアウト（フォント・背景色）を設定する
+- [x] `app/page.tsx` をチャット画面のルートとして実装する
+- [x] `components/Sidebar.tsx` を実装する
+  - [x] スレッド一覧を表示する
+  - [x] スレッドを選択すると `currentThreadId` が切り替わる
+  - [x] 「新規チャット」ボタンを配置する
+- [x] `components/ChatWindow.tsx` を実装する
+  - [x] `currentThreadId` に対応するメッセージ一覧を表示する
+  - [x] メッセージ追加時に最下部へ自動スクロールする
+- [x] `components/MessageBubble.tsx` を実装する
+  - [x] `role` に応じてユーザー / AI のスタイルを出し分ける
+  - [x] `react-markdown` + `remark-gfm` で Markdown をレンダリングする
+  - [x] コードブロックにシンタックスハイライトを適用する（`react-syntax-highlighter` + Prism `oneDark`）
+- [x] `components/MessageInput.tsx` を実装する
+  - [x] テキストエリア（`Shift+Enter` で改行、`Enter` で送信）
+  - [x] ストリーミング中は送信ボタンを無効化する
 
 ## Phase 5: 動作確認・調整
 
