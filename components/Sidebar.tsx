@@ -7,11 +7,19 @@ interface Props {
   currentThreadId: string | null
   onSelectThread: (id: string) => void
   onNewThread: () => void
+  isOpen: boolean
 }
 
-export function Sidebar({ threads, currentThreadId, onSelectThread, onNewThread }: Props) {
+export function Sidebar({ threads, currentThreadId, onSelectThread, onNewThread, isOpen }: Props) {
   return (
-    <aside className="flex w-64 flex-shrink-0 flex-col bg-zinc-900 text-white">
+    <aside
+      className={`
+        fixed inset-y-0 left-0 z-30 flex w-64 flex-shrink-0 flex-col bg-zinc-900 text-white
+        transition-transform duration-300 ease-in-out
+        md:static md:translate-x-0
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}
+    >
       <div className="p-3">
         <button
           onClick={onNewThread}
