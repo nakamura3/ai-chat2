@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import type { ChatThread, Message } from '@/types/chat'
+import type { ChatThread, ImageData, Message, MessageContent } from '@/types/chat'
 
 type State = {
   threads: ChatThread[]
@@ -24,6 +24,12 @@ function initialState(): State {
   return { threads: [thread], currentThreadId: thread.id }
 }
 
+function getDisplayTitle(content: Message['content']): string {
+  if (typeof content === 'string') return content
+  const textPart = content.find((c): c is Extract<MessageContent, { type: 'text' }> => c.type === 'text')
+  return textPart?.text || '画像を送信しました'
+}
+
 export function useChat() {
   const [{ threads, currentThreadId }, setChat] = useState<State>(initialState)
   const [isLoading, setIsLoading] = useState(false)
@@ -40,12 +46,21 @@ export function useChat() {
   }, [])
 
   const sendMessage = useCallback(
-    async (content: string) => {
+    async (text: string, images: ImageData[] = []) => {
       if (!currentThreadId || !currentThread || isLoading) return
 
-      const userMsg: Message = { role: 'user', content }
+      const hasImages = images.length > 0
+      const userMsgContent: Message['content'] = hasImages
+        ? [
+            ...images.map((img): MessageContent => ({ type: 'image', imageData: img })),
+            ...(text ? [{ type: 'text' as const, text }] : []),
+          ]
+        : text
+
+      const userMsg: Message = { role: 'user', content: userMsgContent }
       const assistantMsg: Message = { role: 'assistant', content: '' }
       const isFirstMessage = currentThread.messages.length === 0
+      const displayTitle = getDisplayTitle(userMsgContent)
 
       // 送信前のメッセージ一覧を確保（API に渡すため）
       const messagesForApi = [...currentThread.messages, userMsg]
@@ -59,7 +74,7 @@ export function useChat() {
             : {
                 ...t,
                 title: isFirstMessage
-                  ? content.slice(0, 30) + (content.length > 30 ? '…' : '')
+                  ? displayTitle.slice(0, 30) + (displayTitle.length > 30 ? '…' : '')
                   : t.title,
                 messages: [...t.messages, userMsg, assistantMsg],
               }
@@ -112,7 +127,7 @@ export function useChat() {
                     if (t.id !== currentThreadId) return t
                     const msgs = [...t.messages]
                     const last = msgs.at(-1)
-                    if (last?.role === 'assistant') {
+                    if (last?.role === 'assistant' && typeof last.content === 'string') {
                       msgs[msgs.length - 1] = { ...last, content: last.content + parsed.text }
                     }
                     return { ...t, messages: msgs }
@@ -130,7 +145,7 @@ export function useChat() {
             if (t.id !== currentThreadId) return t
             const msgs = [...t.messages]
             const last = msgs.at(-1)
-            if (last?.role === 'assistant' && last.content === '') {
+            if (last?.role === 'assistant' && typeof last.content === 'string' && last.content === '') {
               msgs[msgs.length - 1] = {
                 ...last,
                 content: 'エラーが発生しました。もう一度お試しください。',

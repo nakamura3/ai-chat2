@@ -14,17 +14,40 @@ interface Props {
 
 export function MessageBubble({ message, isLast, isLoading }: Props) {
   const { role, content } = message
+  const isArray = Array.isArray(content)
   const showTypingIndicator = role === 'assistant' && !content && isLast && isLoading
 
   if (role === 'user') {
     return (
       <div className="flex justify-end">
         <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-blue-500 px-4 py-3 text-white">
-          <p className="break-words whitespace-pre-wrap text-sm">{content}</p>
+          {isArray ? (
+            <div className="space-y-2">
+              {content.map((part, i) =>
+                part.type === 'image' ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={i}
+                    src={`data:${part.imageData.mimeType};base64,${part.imageData.data}`}
+                    alt="添付画像"
+                    className="max-w-full rounded-lg"
+                  />
+                ) : (
+                  <p key={i} className="break-words whitespace-pre-wrap text-sm">
+                    {part.text}
+                  </p>
+                )
+              )}
+            </div>
+          ) : (
+            <p className="break-words whitespace-pre-wrap text-sm">{content}</p>
+          )}
         </div>
       </div>
     )
   }
+
+  const textContent = typeof content === 'string' ? content : ''
 
   return (
     <div className="flex gap-3">
@@ -40,29 +63,29 @@ export function MessageBubble({ message, isLast, isLoading }: Props) {
           </div>
         ) : (
           <div className="markdown-body">
-          <Markdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              code({ node: _node, children, className, ...rest }) {
-                const match = /language-(\w+)/.exec(className || '')
-                return match ? (
-                  <SyntaxHighlighter PreTag="div" language={match[1]} style={oneDark}>
-                    {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code
-                    className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs text-zinc-700"
-                    {...rest}
-                  >
-                    {children}
-                  </code>
-                )
-              },
-            }}
-          >
-            {content}
-          </Markdown>
+            <Markdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                code({ node: _node, children, className, ...rest }) {
+                  const match = /language-(\w+)/.exec(className || '')
+                  return match ? (
+                    <SyntaxHighlighter PreTag="div" language={match[1]} style={oneDark}>
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code
+                      className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs text-zinc-700"
+                      {...rest}
+                    >
+                      {children}
+                    </code>
+                  )
+                },
+              }}
+            >
+              {textContent}
+            </Markdown>
           </div>
         )}
       </div>
